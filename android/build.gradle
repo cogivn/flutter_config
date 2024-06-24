@@ -2,14 +2,15 @@ group 'com.byneapp.flutter_config'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.20'
+    ext.kotlin_version = '2.0.0'
+    ext.agp = '8.5.0'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath "com.android.tools.build:gradle:$agp"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -25,8 +26,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
-
+    if (project.android.hasProperty('namespace')) {
+        namespace 'com.byneapp.flutter_config'
+    }
+    compileSdk 34
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -40,5 +43,5 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.annotation:annotation:1.8.0"
 }
